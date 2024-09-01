@@ -1,0 +1,19 @@
+# Git
+alias gco="git checkout"
+alias gcob="git checkout -b"
+alias gbd="git branch -D"
+alias gm="git merge"
+alias gps="git push"
+alias gpl="git pull"
+alias gs="git status"
+alias ga="git add"
+alias gcm="git commit -m"
+
+# Navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ~="cd ~"
+alias -- -="cd -"
+
+# Get week number
+alias week='date +%V'
