@@ -5,6 +5,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 config.color_scheme = 'Atom'
+config.window_background_opacity = 0.8
+config.macos_window_background_blur = 20
 
 config.use_fancy_tab_bar = false
 
@@ -17,6 +19,9 @@ config.font_size = 16
 -- and let it work as a normal key
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
+
+config.hide_tab_bar_if_only_one_tab = true
+config.window_close_confirmation = "NeverPrompt"
 
 local act = wezterm.action
 
