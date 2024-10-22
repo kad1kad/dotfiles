@@ -144,7 +144,6 @@ lvim.keys.normal_mode["|"] = ":vsplit<CR>"
 lvim.keys.normal_mode["-"] = ":split<CR>"
 lvim.keys.normal_mode["<TAB>"] = ":bnext<CR>"
 lvim.keys.normal_mode["<leader>E"] = ":NvimTreeFocus<CR>"
-lvim.keys.normal_mode["<CR>"] = ":noh<CR><CR>"
 lvim.keys.normal_mode["<leader>o"] = ":let @+ = expand('%')<CR>"
 lvim.keys.normal_mode["<leader>i"] = ":let @+ = 'npx stylelint ' . expand('%') . ' --fix'<CR>"
 lvim.keys.normal_mode["<A-3>"] = nil
