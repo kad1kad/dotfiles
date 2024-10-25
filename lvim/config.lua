@@ -33,48 +33,44 @@ lvim.plugins = {
   event = "BufRead",
   config = function()
     vim.cmd "highlight default link gitblame SpecialComment"
-    require("gitblame").setup { enabled = true }
+    require("gitblame").setup { enabled = false }
   end,
-},
-{
-  "windwp/nvim-ts-autotag",
-  config = function()
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
     require("nvim-ts-autotag").setup()
   end,
-},
-{
-  "mrjones2014/nvim-ts-rainbow",
-},
-{
-  "karb94/neoscroll.nvim",
-  event = "WinScrolled",
-  config = function()
-  require('neoscroll').setup({
-        -- All these keys will be mapped to their corresponding default scrolling animation
-        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-        '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-        hide_cursor = true,          -- Hide cursor while scrolling
-        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-        use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-        respect_scrolloff = true,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-        cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil,        -- Default easing function
-        pre_hook = nil,              -- Function to run before the scrolling animation starts
-        post_hook = nil,              -- Function to run after the scrolling animation ends
-        })
+  },
+  {
+    "karb94/neoscroll.nvim",
+    event = "WinScrolled",
+    config = function()
+    require('neoscroll').setup({
+      -- All these keys will be mapped to their corresponding default scrolling animation
+      mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+      '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+      hide_cursor = true,          -- Hide cursor while scrolling
+      stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+      use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+      respect_scrolloff = true,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+      cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
+      easing_function = nil,        -- Default easing function
+      pre_hook = nil,              -- Function to run before the scrolling animation starts
+      post_hook = nil,              -- Function to run after the scrolling animation ends
+      })
   end
-},
-{
-  "andymass/vim-matchup",
-  event = "CursorMoved",
-  config = function()
-    vim.g.matchup_matchparen_offscreen = { method = "popup" }
-  end,
-},
+  },
+  {
+    "tpope/vim-surround"
+  },
+  { 
+  "mg979/vim-visual-multi" 
+  },
 }
 
 -- enable treesitter integration for matchup
-lvim.builtin.treesitter.matchup.enable = true
+-- lvim.builtin.treesitter.matchup.enable = true
 
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
@@ -98,12 +94,10 @@ vim.diagnostic.config({
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
 
-formatters.setup { { name = "black" },
+formatters.setup { 
+  { name = "black" },
   {
     name = "prettier",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespace
-    -- options such as `--line-width 80` become either `{"--line-width", "80"}` or `{"--line-width=80"}`
     args = { "--print-width", "100" },
     ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
     filetypes = { "typescript", "typescriptreact", "scss", "css" },
@@ -137,6 +131,7 @@ lvim.builtin.which_key.mappings["C"] = {
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 -- remove `jedi_language_server` from `skipped_servers` list
 lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+-- use jedi_language_server as python lsp
 return server ~= "jedi_language_server"
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
@@ -150,9 +145,28 @@ lvim.keys.normal_mode["<A-3>"] = nil
 lvim.keys.insert_mode["<A-3>"] = nil
 lvim.keys.normal_mode["c"] = '"_c'
 lvim.keys.normal_mode["C"] = '"_C'
+lvim.keys.normal_mode["<leader>y"] = ":%y+<CR>" --yank complete file to system clipboard
+
 
 -- disable change of root dir
 lvim.builtin.project.manual_mode = true
+
+lvim.builtin.telescope.defaults.vimgrep_arguments = {
+  "rg",
+  "--color=never",
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
+  "--smart-case",
+  "--no-ignore-vcs" -- respects .gitignore settings
+}
+
+lvim.builtin.telescope.pickers.find_files = {
+  theme = "dropdown",
+  find_command = { "rg", "--files", "--hidden", "--iglob", "!.git/*" }, -- exclude the .git directory
+  show_untracked = false -- don't show untracked files or branches
+}
 
 require 'nvim-treesitter.configs'.setup {
   autotag = {
@@ -162,16 +176,16 @@ require 'nvim-treesitter.configs'.setup {
 
 lvim.builtin.alpha.dashboard.section.header.val = {
 [[]],
-[[ ██ ▄█▀▄▄▄      ▓█████▄      ██▒   █▓ ██▓ ███▄ ▄███▓ ]],
-[[ ██▄█▒▒████▄     ▒██▀ ██▌   ▓██░   █▒▓██▒▓██▒▀█▀ ██▒ ]],
-[[ ▓███▄░▒██  ▀█▄  ░██   █▌    ▓██  █▒░▒██▒▓██    ▓██░ ]],
-[[ ▓██ █▄░██▄▄▄▄██ ░▓█▄   ▌     ▒██ █░░░██░▒██    ▒██  ]],
-[[ ▒██▒ █▄▓█   ▓██▒░▒████▓       ▒▀█░  ░██░▒██▒   ░██▒ ]],
-[[ ▒ ▒▒ ▓▒▒▒   ▓▒█░ ▒▒▓  ▒       ░ ▐░  ░▓  ░ ▒░   ░  ░ ]],
-[[ ░ ░▒ ▒░ ▒   ▒▒ ░ ░ ▒  ▒       ░ ░░   ▒ ░░  ░      ░ ]],
-[[ ░ ░░ ░  ░   ▒    ░ ░  ░         ░░   ▒ ░░      ░    ]],
-[[ ░  ░        ░  ░   ░             ░   ░         ░    ]],
-[[                  ░              ░                   ]],
+[[ ██ ▄█▀▄▄▄      ▓█████▄    ██▒   █▓ ██▓ ███▄ ▄███▓ ]],
+[[ ██▄█▒▒████▄     ▒██▀ ██▌ ▓██░   █▒▓██▒▓██▒▀█▀ ██▒ ]],
+[[ ▓███▄░▒██  ▀█▄  ░██   █▌  ▓██  █▒░▒██▒▓██    ▓██░ ]],
+[[ ▓██ █▄░██▄▄▄▄██ ░▓█▄   ▌   ▒██ █░░░██░▒██    ▒██  ]],
+[[ ▒██▒ █▄▓█   ▓██▒░▒████▓     ▒▀█░  ░██░▒██▒   ░██▒ ]],
+[[ ▒ ▒▒ ▓▒▒▒   ▓▒█░ ▒▒▓  ▒     ░ ▐░  ░▓  ░ ▒░   ░  ░ ]],
+[[ ░ ░▒ ▒░ ▒   ▒▒ ░ ░ ▒  ▒     ░ ░░   ▒ ░░  ░      ░ ]],
+[[ ░ ░░ ░  ░   ▒    ░ ░  ░       ░░   ▒ ░░      ░    ]],
+[[ ░  ░        ░  ░   ░           ░   ░         ░    ]],
+[[                  ░            ░                   ]],
 [[]],
 
 }
