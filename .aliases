@@ -1,4 +1,5 @@
 # Git
+alias g="git"
 alias gco="git checkout"
 alias gcob="git checkout -b"
 alias gbd="git branch -D"
@@ -12,8 +13,14 @@ alias gcm="git commit -m"
 # Navigation
 alias ..="cd .."
 alias ...="cd ../.."
-alias ~="cd ~"
-alias -- -="cd -"
+
+alias q="exit"
+
+#tmux
+alias tmux="t"
+alias ta="tmux attach -t" # Attach to a session by name
+alias tls=|tmux list-sessions" # List all tmux sessions
+alias tk="tmux kill-session -t" # Kill a session by name
 
 # Get week number
-alias week='date +%V'
+alias week="date +%V"
