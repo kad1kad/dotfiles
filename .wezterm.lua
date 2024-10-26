@@ -5,12 +5,16 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 config.window_close_confirmation = "NeverPrompt"
 
+config.term = "xterm-256color"
+
 config.color_scheme = 'Atom'
--- config.window_background_opacity = 0.9
--- config.macos_window_background_blur = 10
--- config.colors = {
---   background = '#222a36'
--- }
+
+config.window_padding = {
+  left = 0,
+  right = 0,
+  top = 0,
+  bottom = 0,
+}
 
 config.use_fancy_tab_bar = false
 
