@@ -1,9 +1,27 @@
 lvim.colorscheme = "nordic"
-lvim.transparent_window = true
+
+-- lualine options
+lvim.builtin.lualine.sections.lualine_c = {
+  { "filename", path = 1 }  -- Using `path = 1` to show the relative path
+}
+lvim.builtin.lualine.sections.lualine_b = { "mode" }
+lvim.builtin.lualine.sections.lualine_z = { "space" }
+lvim.builtin.lualine.sections.lualine_y = { "space" }
 
 -- install plugins
 lvim.plugins = {
-  "AlexvZyl/nordic.nvim",
+  {
+    "folke/tokyonight.nvim",
+  },
+  {
+    "sainnhe/sonokai",
+  },
+  {
+    "AlexvZyl/nordic.nvim",
+  },
+  {
+    "mlaursen/vim-react-snippets"
+  },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -29,12 +47,12 @@ lvim.plugins = {
     end,
   },
   {
-  "f-person/git-blame.nvim",
-  event = "BufRead",
-  config = function()
-    vim.cmd "highlight default link gitblame SpecialComment"
-    require("gitblame").setup { enabled = false }
-  end,
+    "f-person/git-blame.nvim",
+    event = "BufRead",
+    config = function()
+      vim.cmd "highlight default link gitblame SpecialComment"
+      require("gitblame").setup { enabled = false }
+    end,
   },
   {
     "windwp/nvim-ts-autotag",
@@ -55,7 +73,7 @@ lvim.plugins = {
       use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
       respect_scrolloff = true,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
       cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
-      easing_function = nil,        -- Default easing function
+      easing_function = "linear",        -- Default easing function
       pre_hook = nil,              -- Function to run before the scrolling animation starts
       post_hook = nil,              -- Function to run after the scrolling animation ends
       })
@@ -64,8 +82,8 @@ lvim.plugins = {
   {
     "tpope/vim-surround"
   },
-  { 
-  "mg979/vim-visual-multi" 
+  {
+    "mg979/vim-visual-multi"
   },
 }
 
@@ -94,7 +112,7 @@ vim.diagnostic.config({
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
 
-formatters.setup { 
+formatters.setup {
   { name = "black" },
   {
     name = "prettier",
@@ -147,6 +165,7 @@ lvim.keys.normal_mode["c"] = '"_c'
 lvim.keys.normal_mode["C"] = '"_C'
 lvim.keys.normal_mode["<leader>y"] = ":%y+<CR>" --yank complete file to system clipboard
 
+lvim.builtin.treesitter.indent = { enable = false }
 
 -- disable change of root dir
 lvim.builtin.project.manual_mode = true
@@ -161,6 +180,8 @@ lvim.builtin.telescope.defaults.vimgrep_arguments = {
   "--smart-case",
   "--no-ignore-vcs" -- respects .gitignore settings
 }
+
+vim.o.termguicolors = true
 
 lvim.builtin.telescope.pickers.find_files = {
   theme = "dropdown",
