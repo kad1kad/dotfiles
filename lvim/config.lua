@@ -8,6 +8,33 @@ lvim.builtin.lualine.sections.lualine_b = { "mode" }
 lvim.builtin.lualine.sections.lualine_z = { "space" }
 lvim.builtin.lualine.sections.lualine_y = { "space" }
 
+-- require('lspconfig').cssls.setup({
+--   capabilities = capabilities,
+-- })
+
+require('lspconfig').cssls.setup({
+    filetypes = { "css", "scss", "sass" },
+    settings = {
+        css = {
+            validate = true,
+        },
+        scss = {
+            validate = true,
+        },
+        less = {
+            validate = true,
+        },
+    },
+})
+
+require('lspconfig').stylelint_lsp.setup({
+  filetypes = { "scss", "css", "sass" }, -- Ensure it attaches to SCSS files
+  settings = {
+    stylelintplus = {
+      autoFixOnSave = true, -- Optional: auto-fix on save if desired
+    },
+  },
+})
 -- install plugins
 lvim.plugins = {
   {
@@ -181,7 +208,7 @@ lvim.builtin.telescope.defaults.vimgrep_arguments = {
   "--no-ignore-vcs" -- respects .gitignore settings
 }
 
-vim.o.termguicolors = true
+lvim.builtin.telescope.defaults.path_display = { "relative" }
 
 lvim.builtin.telescope.pickers.find_files = {
   theme = "dropdown",
@@ -194,6 +221,8 @@ require 'nvim-treesitter.configs'.setup {
     enable = true,
   }
 }
+
+vim.o.termguicolors = true
 
 lvim.builtin.alpha.dashboard.section.header.val = {
 [[]],
