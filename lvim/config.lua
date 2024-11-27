@@ -1,5 +1,23 @@
 lvim.colorscheme = "nordic"
 
+-- Set a more prominent background color for Visual mode to improve visibility
+vim.cmd([[
+  highlight Visual guibg=#14151a guifg=NONE
+]])
+
+-- Toggle between nordic and onenord-light themes
+lvim.keys.normal_mode["<leader>tt"] = function()
+  local current_theme = vim.g.colors_name
+  if current_theme == "nordic" then
+    lvim.colorscheme = "onenord-light"
+    vim.cmd("colorscheme onenord-light")
+  else
+    lvim.colorscheme = "nordic"
+    vim.cmd("colorscheme nordic")
+  end
+  print("Switched to " .. lvim.colorscheme .. " theme")
+end
+
 -- lualine options
 lvim.builtin.lualine.sections.lualine_c = {
   { "filename", path = 1 }  -- Using `path = 1` to show the relative path
@@ -31,17 +49,17 @@ require('lspconfig').stylelint_lsp.setup({
   filetypes = { "scss", "css", "sass" }, -- Ensure it attaches to SCSS files
   settings = {
     stylelintplus = {
-      autoFixOnSave = true, -- Optional: auto-fix on save if desired
+      autoFixOnSave = true,
     },
   },
 })
 -- install plugins
 lvim.plugins = {
   {
-    "folke/tokyonight.nvim",
+    "rmehri01/onenord.nvim"
   },
   {
-    "sainnhe/sonokai",
+    "folke/tokyonight.nvim",
   },
   {
     "AlexvZyl/nordic.nvim",
@@ -61,7 +79,7 @@ lvim.plugins = {
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
       -- "rcarriga/nvim-notify",
-    }
+  }
   },
   {
     "casonadams/simple-diagnostics.nvim",
@@ -88,25 +106,6 @@ lvim.plugins = {
   end,
   },
   {
-    "karb94/neoscroll.nvim",
-    event = "WinScrolled",
-    config = function()
-    require('neoscroll').setup({
-      -- All these keys will be mapped to their corresponding default scrolling animation
-      mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-      '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-      hide_cursor = true,          -- Hide cursor while scrolling
-      stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-      use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-      respect_scrolloff = true,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-      cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
-      easing_function = "linear",        -- Default easing function
-      pre_hook = nil,              -- Function to run before the scrolling animation starts
-      post_hook = nil,              -- Function to run after the scrolling animation ends
-      })
-  end
-  },
-  {
     "tpope/vim-surround"
   },
   {
@@ -131,9 +130,8 @@ lvim.builtin.treesitter.ensure_installed = {
   "python",
 }
 
--- turn off virtual text
 vim.diagnostic.config({
-  virtual_text = false
+  virtual_text = true
 })
 
 -- setup formatting
@@ -145,7 +143,7 @@ formatters.setup {
     name = "prettier",
     args = { "--print-width", "100" },
     ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
-    filetypes = { "typescript", "typescriptreact", "scss", "css" },
+    filetypes = { "typescript", "typescriptreact", "scss", "css", "html" },
   },
   {
     name = "djlint",
@@ -153,25 +151,13 @@ formatters.setup {
   }
 }
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py", "*.js", ".ts", ".scss" }
+lvim.format_on_save.pattern = { "*.py", "*.scss" }
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup { { command = "flake8", filetypes = { "python" } },
   { command = "djlint", filetypes = { "htmldjango" } } }
 
--- setup debug adapter
-lvim.builtin.dap.active = true
-local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
-pcall(function()
-  require("dap-python").setup(mason_path .. "packages/debugpy/venv/bin/python")
-end)
-
--- binding for switching
-lvim.builtin.which_key.mappings["C"] = {
-  name = "Python",
-  c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
-}
 -- add `pyright` to `skipped_servers` list
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 -- remove `jedi_language_server` from `skipped_servers` list
@@ -183,16 +169,50 @@ end, lvim.lsp.automatic_configuration.skipped_servers)
 lvim.keys.normal_mode["|"] = ":vsplit<CR>"
 lvim.keys.normal_mode["-"] = ":split<CR>"
 lvim.keys.normal_mode["<TAB>"] = ":bnext<CR>"
+lvim.keys.normal_mode["<S-TAB>"] = ":bprevious<CR>"
 lvim.keys.normal_mode["<leader>E"] = ":NvimTreeFocus<CR>"
-lvim.keys.normal_mode["<leader>o"] = ":let @+ = expand('%')<CR>"
-lvim.keys.normal_mode["<leader>i"] = ":let @+ = 'npx stylelint ' . expand('%') . ' --fix'<CR>"
-lvim.keys.normal_mode["<A-3>"] = nil
-lvim.keys.insert_mode["<A-3>"] = nil
+lvim.keys.normal_mode["<leader>o"] = ":let @+ = expand('%')<CR>" -- copy file path in to clipboard
 lvim.keys.normal_mode["c"] = '"_c'
 lvim.keys.normal_mode["C"] = '"_C'
 lvim.keys.normal_mode["<leader>y"] = ":%y+<CR>" --yank complete file to system clipboard
+-- Move line up
+lvim.keys.normal_mode["<A-k>"] = ":m .-2<CR>=="
+-- Move line down
+lvim.keys.normal_mode["<A-j>"] = ":m .+1<CR>=="
+
+-- Visual mode: Move selected lines up
+lvim.keys.visual_mode["<A-k>"] = ":m '<-2<CR>gv=gv"
+-- Visual mode: Move selected lines down
+lvim.keys.visual_mode["<A-j>"] = ":m '>+1<CR>gv=gv"
+
+lvim.keys.normal_mode["<leader>a"] = "ciw"
+lvim.keys.normal_mode["<leader>s"] = "ci\""
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "+Terminal",
+  f = { "<cmd>ToggleTerm<cr>", "Floating terminal" },
+  v = { "<cmd>2ToggleTerm size=45 direction=vertical<cr>", "Split vertical" },
+  h = { "<cmd>2ToggleTerm size=45 direction=horizontal<cr>", "Split horizontal" },
+}
+
+lvim.keys.normal_mode["<leader>r"] = ":luafile ~/.config/lvim/config.lua<CR>"
+
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "FocusGained" }, {
+  pattern = "*",
+  command = "checktime",
+})
 
 lvim.builtin.treesitter.indent = { enable = false }
+
+require 'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true,
+  }
+}
+
+vim.opt.list = true
+vim.opt.listchars:append("space:·,trail:•")
 
 -- disable change of root dir
 lvim.builtin.project.manual_mode = true
@@ -205,39 +225,26 @@ lvim.builtin.telescope.defaults.vimgrep_arguments = {
   "--line-number",
   "--column",
   "--smart-case",
-  "--no-ignore-vcs" -- respects .gitignore settings
+  "--no-ignore-vcs", -- respects .gitignore settings
+  "--glob", "!*.min.*" -- exclude files with `.min.` in their names
 }
 
 lvim.builtin.telescope.defaults.path_display = { "relative" }
 
+lvim.builtin.telescope.defaults.layout_strategy = "vertical"
+lvim.builtin.telescope.defaults.layout_config = {
+  width = 0.99, -- almost full screen width
+  height = 0.99, -- almost full screen height
+  preview_cutoff = 0, -- always show the preview
+  vertical = {
+    preview_height = 0.7, -- Make the preview window take up 70% of the height
+    results_height = 0.3, -- Reduce the height of the results section to 30%
+  },
+}
+
 lvim.builtin.telescope.pickers.find_files = {
-  theme = "dropdown",
-  find_command = { "rg", "--files", "--hidden", "--iglob", "!.git/*" }, -- exclude the .git directory
+  find_command = { "rg", "--files", "--hidden", "--iglob", "!.git/*", "--glob", "!*.min.*" }, -- exclude the .git directory and minified files
   show_untracked = false -- don't show untracked files or branches
 }
 
-require 'nvim-treesitter.configs'.setup {
-  autotag = {
-    enable = true,
-  }
-}
-
 vim.o.termguicolors = true
-
-lvim.builtin.alpha.dashboard.section.header.val = {
-[[]],
-[[ ██ ▄█▀▄▄▄      ▓█████▄    ██▒   █▓ ██▓ ███▄ ▄███▓ ]],
-[[ ██▄█▒▒████▄     ▒██▀ ██▌ ▓██░   █▒▓██▒▓██▒▀█▀ ██▒ ]],
-[[ ▓███▄░▒██  ▀█▄  ░██   █▌  ▓██  █▒░▒██▒▓██    ▓██░ ]],
-[[ ▓██ █▄░██▄▄▄▄██ ░▓█▄   ▌   ▒██ █░░░██░▒██    ▒██  ]],
-[[ ▒██▒ █▄▓█   ▓██▒░▒████▓     ▒▀█░  ░██░▒██▒   ░██▒ ]],
-[[ ▒ ▒▒ ▓▒▒▒   ▓▒█░ ▒▒▓  ▒     ░ ▐░  ░▓  ░ ▒░   ░  ░ ]],
-[[ ░ ░▒ ▒░ ▒   ▒▒ ░ ░ ▒  ▒     ░ ░░   ▒ ░░  ░      ░ ]],
-[[ ░ ░░ ░  ░   ▒    ░ ░  ░       ░░   ▒ ░░      ░    ]],
-[[ ░  ░        ░  ░   ░           ░   ░         ░    ]],
-[[                  ░            ░                   ]],
-[[]],
-
-}
--- turn off line wrap
--- vim.opt.wrap = false
