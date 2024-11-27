@@ -7,7 +7,7 @@ config.window_close_confirmation = "NeverPrompt"
 
 config.term = "xterm-256color"
 
-config.color_scheme = 'Atom'
+config.color_scheme = 'Nord (Gogh)'
 
 config.window_padding = {
   left = 0,
@@ -25,6 +25,7 @@ config.initial_rows = 150
 config.window_decorations = "RESIZE"
 
 config.font_size = 16
+config.font = wezterm.font("JetBrains Mono NL", { weight = "Regular", style = "Normal" })
 
 -- Disable treating Alt as a modifier for commands
 -- and let it work as a normal key
@@ -33,11 +34,35 @@ config.send_composed_key_when_right_alt_is_pressed = true
 
 config.hide_tab_bar_if_only_one_tab = true
 
+-- Enable clickable links
+config.hyperlink_rules = {
+  -- Match standard http/https URLs
+  {
+    regex = [[\bhttps?://[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
+    format = "$0",
+  },
+  -- Match 'www' URLs without 'http'
+  {
+    regex = [[\bwww\.[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
+    format = "https://$0",
+  },
+  -- Match emails
+  {
+    regex = [[\b[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}\b]],
+    format = "mailto:$0",
+  },
+}
+
 local act = wezterm.action
 
 config.keys = {
+  -- Move tabs
   { key = '{', mods = 'SHIFT|SUPER', action = act.MoveTabRelative(-1) },
   { key = '}', mods = 'SHIFT|SUPER', action = act.MoveTabRelative(1) },
+
+  -- Pass Alt-j and Alt-k to Neovim
+  { key = 'j', mods = 'ALT', action = act.SendKey { key = 'j', mods = 'ALT' } },
+  { key = 'k', mods = 'ALT', action = act.SendKey { key = 'k', mods = 'ALT' } },
 }
 
 return config
