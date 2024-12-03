@@ -2,7 +2,7 @@ lvim.colorscheme = "nordic"
 
 -- Set a more prominent background color for Visual mode to improve visibility
 vim.cmd([[
-  highlight Visual guibg=#14151a guifg=NONE
+  highlight Visual guibg=#0f1114 guifg=NONE
 ]])
 
 -- Toggle between nordic and onenord-light themes
@@ -18,6 +18,15 @@ lvim.keys.normal_mode["<leader>tt"] = function()
   print("Switched to " .. lvim.colorscheme .. " theme")
 end
 
+
+local cmp = require("cmp")
+cmp.setup({
+    sources = cmp.config.sources({
+        { name = "nvim_lsp" }, -- Ensure LSP completion is first
+        { name = "buffer" },
+        { name = "path" },
+    }),
+})
 -- lualine options
 lvim.builtin.lualine.sections.lualine_c = {
   { "filename", path = 1 }  -- Using `path = 1` to show the relative path
@@ -26,33 +35,45 @@ lvim.builtin.lualine.sections.lualine_b = { "mode" }
 lvim.builtin.lualine.sections.lualine_z = { "space" }
 lvim.builtin.lualine.sections.lualine_y = { "space" }
 
--- require('lspconfig').cssls.setup({
---   capabilities = capabilities,
--- })
-
 require('lspconfig').cssls.setup({
+    capabilities = require('lvim.lsp').common_capabilities(),
+    on_attach = function(client, bufnr)
+        print("cssls attached") -- Debug message
+    end,
     filetypes = { "css", "scss", "sass" },
     settings = {
-        css = {
-            validate = true,
-        },
-        scss = {
-            validate = true,
-        },
-        less = {
-            validate = true,
+        css = { validate = true },
+        scss = { validate = true },
+        less = { validate = true },
+    },
+})
+require('lspconfig').stylelint_lsp.setup({
+    capabilities = require('lvim.lsp').common_capabilities(),
+    on_attach = function(client, bufnr)
+        print("stylelint_lsp attached") -- Debug message
+    end,
+    filetypes = { "scss", "css", "sass" },
+    settings = {
+        stylelintplus = {
+            autoFixOnSave = true,
         },
     },
 })
 
-require('lspconfig').stylelint_lsp.setup({
-  filetypes = { "scss", "css", "sass" }, -- Ensure it attaches to SCSS files
-  settings = {
-    stylelintplus = {
-      autoFixOnSave = true,
-    },
-  },
+require('lspconfig').tsserver.setup({
+  on_attach = function(client, bufnr)
+    -- Optional: Add custom settings here
+  end,
+  capabilities = require('lvim.lsp').common_capabilities(),
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        print("LSP attached: " .. client.name)
+    end,
+})
+
 -- install plugins
 lvim.plugins = {
   {
@@ -131,27 +152,36 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 vim.diagnostic.config({
-  virtual_text = true
+  virtual_text = false
 })
 
 -- setup formatting
-local formatters = require "lvim.lsp.null-ls.formatters"
-
+local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup {
-  { name = "black" },
-  {
-    name = "prettier",
-    args = { "--print-width", "100" },
-    ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
-    filetypes = { "typescript", "typescriptreact", "scss", "css", "html" },
-  },
-  {
+    {
+        name = "prettier",
+        extra_args = { "--single-quote", "--trailing-comma=es5", "--print-width", "100", "--use-tabs", "false", "--tab-width", "2"},
+        filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact", "css", "scss", "html" },
+    },
+    {
+        name = "stylelint",
+        extra_args = { "--syntax=scss" },
+        filetypes = { "scss", "css" },
+    },
+    {
     name = "djlint",
     filetypes = { "htmldjango" }
-  }
+    },
+    {
+    name = "black",
+    filetypes = { "python" },
+    },
+
 }
+
+-- Enable formatting on save for specific filetypes
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py", "*.scss" }
+lvim.format_on_save.pattern = {"*.scss", "*.html" }
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
@@ -171,7 +201,11 @@ lvim.keys.normal_mode["-"] = ":split<CR>"
 lvim.keys.normal_mode["<TAB>"] = ":bnext<CR>"
 lvim.keys.normal_mode["<S-TAB>"] = ":bprevious<CR>"
 lvim.keys.normal_mode["<leader>E"] = ":NvimTreeFocus<CR>"
-lvim.keys.normal_mode["<leader>o"] = ":let @+ = expand('%')<CR>" -- copy file path in to clipboard
+lvim.keys.normal_mode["<leader>o"] = function()
+  local file_path = vim.fn.expand("%")
+  vim.fn.setreg("+", file_path)
+  print("Copied file path to clipboard: " .. file_path)
+end
 lvim.keys.normal_mode["c"] = '"_c'
 lvim.keys.normal_mode["C"] = '"_C'
 lvim.keys.normal_mode["<leader>y"] = ":%y+<CR>" --yank complete file to system clipboard
@@ -216,6 +250,13 @@ vim.opt.listchars:append("space:·,trail:•")
 
 -- disable change of root dir
 lvim.builtin.project.manual_mode = true
+lvim.builtin.nvimtree.setup.update_focused_file.update_root = false
+lvim.builtin.project.patterns = { ">Projects", ".git" } -- defaults include other VCSs, Makefile, package.json
+vim.api.nvim_create_autocmd("DirChanged", {
+    callback = function()
+        print("Directory changed to: " .. vim.fn.getcwd())
+    end,
+})
 
 lvim.builtin.telescope.defaults.vimgrep_arguments = {
   "rg",
@@ -248,3 +289,4 @@ lvim.builtin.telescope.pickers.find_files = {
 }
 
 vim.o.termguicolors = true
+
