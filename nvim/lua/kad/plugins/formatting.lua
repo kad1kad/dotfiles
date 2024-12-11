@@ -6,35 +6,34 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        javascript = { "prettier" },
-        typescript = { "prettier" },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
         javascriptreact = { "prettier" },
         typescriptreact = { "prettier" },
-        svelte = { "prettier" },
         css = { "stylelint" },
-        html = { "prettier" },
+        scss = { "stylelint" },
         json = { "prettier" },
         yaml = { "prettier" },
         markdown = { "prettier" },
-        graphql = { "prettier" },
-        liquid = { "prettier" },
         lua = { "stylua" },
         python = { "isort", "black" },
-        djangohtml = { "dlint" },
+        htmldjango = { "djlint" },
       },
-      -- format_on_save = {
-      --   lsp_fallback = true,
-      --   async = false,
-      --   timeout_ms = 1000,
-      -- },
+      log_level = vim.log.levels.DEBUG, -- Enable debugging
+      log_file = "/tmp/conform.log", -- Path for logging
     })
 
-    vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+    vim.keymap.set({ "n", "v" }, "<leader>ff", function()
       conform.format({
         lsp_fallback = true,
         async = false,
-        timeout_ms = 1000,
+        timeout_ms = 3000, -- Increased timeout to avoid djlint timeout errors
       })
     end, { desc = "Format file or range (in visual mode)" })
+
+    -- Diagnostic command to check formatters
+    vim.keymap.set("n", "<leader>cf", function()
+      print(vim.inspect(conform.formatters_by_ft[vim.bo.filetype]))
+    end, { desc = "Check attached formatters for current filetype" })
   end,
 }

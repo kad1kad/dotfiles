@@ -36,13 +36,10 @@ return {
     keymap("n", "<leader>sf", "<cmd>Telescope find_files<CR>", { noremap = true, silent = true })
 
     -- Live grep (search in the current working directory)
-    keymap("n", "<leader>sg", "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
+    keymap("n", "<leader>st", "<cmd>Telescope live_grep<CR>", { noremap = true, silent = true })
 
     -- Live grep (search in the current working directory)
     keymap("n", "<leader>sw", "<cmd>Telescope grep_string<CR>", { noremap = true, silent = true })
-
-    -- Find buffers
-    keymap("n", "<leader>sb", "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
 
     -- Find LSP references (requires LSP server)
     keymap("n", "<leader>sl", "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })

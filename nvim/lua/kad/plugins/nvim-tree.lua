@@ -16,6 +16,7 @@ return {
       },
       view = {
         width = 35,
+        side = "right", -- Set nvim-tree to open on the right
       },
       renderer = {
         group_empty = true,

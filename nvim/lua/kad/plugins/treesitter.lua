@@ -17,7 +17,7 @@ return {
           enable = true
         },
         ensure_installed = {
-          "json", "javascript", "typescript", "tsx", "yaml", "html", "css", "scss", "markdown",
+          "json", "javascript", "typescript", "tsx", "yaml", "html", "htmldjango", "css", "scss", "markdown",
           "markdown_inline", "bash", "lua", "vim", "dockerfile", "gitignore", "python", "elixir"
         },
         incremental_selection = {

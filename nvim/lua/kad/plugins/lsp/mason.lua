@@ -24,8 +24,8 @@ return {
 			},
 		})
 
-		mason_lspconfig.setup({
-			-- list of servers for mason to install
+		require("mason-lspconfig").setup({
+			-- List of servers for Mason to ensure are installed
 			ensure_installed = {
 				"ts_ls",
 				"html",
@@ -35,6 +35,8 @@ return {
 				"emmet_ls",
 				"pyright",
 			},
+			-- Automatically install configured servers (set to true or false)
+			automatic_installation = true, -- Optional, true by default
 		})
 
 		mason_tool_installer.setup({
