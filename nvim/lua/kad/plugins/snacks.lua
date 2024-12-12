@@ -2,37 +2,13 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	dependencies = {
-		{ "princejoogie/chafa.nvim", lazy = false },
-	},
+	dependencies = {},
 	---@type snacks.Config
 	opts = {
-		bigfile = { enabled = true },
-		dashboard = {
-			enabled = true,
-			sections = {
-				{
-					header = [[
-          ███    ██ ███████  ██████  ██    ██ ██ ███    ███      
-          ████   ██ ██      ██    ██ ██    ██ ██ ████  ████       
-          ██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██       
-          ██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██        
-          ██   ████ ███████  ██████    ████   ██ ██      ██         
-          ]],
-				},
-				{
-					section = "terminal",
-					cmd = "/opt/homebrew/Cellar/chafa/1.14.5/bin/chafa ~/.config/picard1.png --format symbols --size 60x30 ; sleep .1",
-					height = 17,
-					padding = 1,
-				},
-			},
-		},
 		notifier = {
 			enabled = true,
 			timeout = 3000,
 		},
-		words = { enabled = true },
 		styles = {
 			notification = {
 				-- wo = { wrap = true } -- Wrap notifications
@@ -89,40 +65,6 @@ return {
 				Snacks.terminal()
 			end,
 			desc = "Toggle Terminal",
-		},
-		{
-			"]]",
-			function()
-				Snacks.words.jump(vim.v.count1)
-			end,
-			desc = "Next Reference",
-			mode = { "n", "t" },
-		},
-		{
-			"[[",
-			function()
-				Snacks.words.jump(-vim.v.count1)
-			end,
-			desc = "Prev Reference",
-			mode = { "n", "t" },
-		},
-		{
-			"<leader>N",
-			desc = "Neovim News",
-			function()
-				Snacks.win({
-					file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-					width = 0.6,
-					height = 0.6,
-					wo = {
-						spell = false,
-						wrap = false,
-						signcolumn = "yes",
-						statuscolumn = " ",
-						conceallevel = 3,
-					},
-				})
-			end,
 		},
 	},
 	init = function()
