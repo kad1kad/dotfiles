@@ -84,6 +84,12 @@ return {
 					filetypes = { "typescript", "javascript" },
 				})
 			end,
+			["tailwindcss"] = function()
+				lspconfig["tailwindcss"].setup({
+					capabilities = capabilities,
+					filetypes = { "html", "typescriptreact", "javascriptreact" },
+				})
+			end,
 			["cssls"] = function()
 				lspconfig["cssls"].setup({
 					capabilities = capabilities,
