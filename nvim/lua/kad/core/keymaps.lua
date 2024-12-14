@@ -15,10 +15,14 @@ keymap("v", "C", '"_C', opts)
 -- Yank entire file to system clipboard
 keymap("n", "<leader>y", ":%y+<CR>", opts)
 
+-- Select entire document
+keymap("n", "<leader>a", "ggVG", opts)
+
 -- Move line up
-keymap("n", "<C-k>", ":m .-2<CR>==", opts)
+keymap("n", "<C-k>", ":m .-2<CR>==`[", opts)
+
 -- Move line down
-keymap("n", "<C-j>", ":m .+1<CR>==", opts)
+keymap("n", "<C-j>", ":m .+1<CR>==`]", opts)
 
 -- Visual mode: Move selected lines up
 keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
@@ -33,9 +37,6 @@ keymap("n", "<leader>\"", "ci\"", opts)
 
 -- Change inside '
 keymap("n", "<leader>\'", "ci\'", opts)
-
--- Select entire document
-keymap("n", "<leader>a", "ggVG", opts)
 
 -- Go back a word with backspace
 keymap("n", "<BS>", "b", opts)

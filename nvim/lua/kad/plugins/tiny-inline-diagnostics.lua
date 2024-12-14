@@ -6,6 +6,7 @@ return {
 	config = function()
 		vim.diagnostic.config({ virtual_text = false })
 		require("tiny-inline-diagnostic").setup({
+      preset = "simple",
 			options = {
 				show_source = true,
 				overflow = {
