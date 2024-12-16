@@ -9,6 +9,7 @@ return {
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
+    local builtin = require("telescope.builtin")
 
     telescope.setup({
       defaults = {
@@ -23,7 +24,7 @@ return {
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-j>"] = actions.move_selection_next,
           },
-        }
+        },
       }
     })
 
@@ -47,10 +48,12 @@ return {
     -- Find diagnostics (requires LSP server)
     keymap("n", "<leader>sd", "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
 
-    -- Open old files
-    keymap("n", "<leader>sr", "<cmd>Telescope oldfiles<CR>", { noremap = true, silent = true })
+    -- Open old files, limiting to the current working directory
+    keymap("n", "<leader>sr", "<cmd>lua require('telescope.builtin').oldfiles({ cwd = vim.fn.getcwd() })<CR>", { noremap = true, silent = true })
 
     -- Reopen the last search
     keymap("n", "<leader>sl", "<cmd>Telescope resume<CR>", { noremap = true, silent = true })
+
+    keymap('n', '<leader>sb', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
   end,
 }

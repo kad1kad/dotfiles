@@ -1,7 +1,7 @@
 return {
 	"echasnovski/mini.indentscope",
 	opts = function(_, opts)
-		opts.symbol = "|" -- ▏│
+		opts.symbol = "▏" -- ▏│
 		opts.options = { try_as_border = true }
 		opts.draw = {
 			delay = 0,

@@ -35,35 +35,38 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 opt.swapfile = false
 
-vim.api.nvim_exec(
-	[[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup END
-]],
-	false
-)
+-- Highlight yanked text
+vim.api.nvim_set_hl(0, "YankHighlight", { bg = "", fg = "#c5727a" })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
 
--- opt.list = true
--- opt.listchars:append("space:·,trail:•")
+	callback = function()
+		vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 300 })
+	end,
+})
 
-vim.o.hidden = false -- disable buffers
+-- Define a subtle font color (use any color you prefer here)
+vim.cmd([[
+  highlight YankHighlightGroup guifg=#b0b0b0  " Light grey font color for yanked text
+]])
 
--- Save file when leaving a file
+-- Define a subtle font color (use any color you prefer here)
+vim.cmd([[
+  highlight YankHighlightGroup guifg=#b0b0b0  " Light grey font color for yanked text
+]])
+
+-- BUFFER MANAGEMENT --
+-- Disables hidden buffers to ensure buffers are always visible and explicitly managed.
+-- This configuration also re-enables necessary features, like auto-saving, cursor position restoration,
+-- that are affected by disabling hidden buffers and persists the undo history.
+
+vim.o.hidden = false -- disable hidden buffers
+
+-- Save modified files when leaving
 vim.api.nvim_create_autocmd("BufLeave", {
 	callback = function()
 		if vim.bo.modified then
 			vim.cmd("silent! w") -- Save the file silently without showing messages
-		end
-	end,
-})
-
-vim.api.nvim_create_autocmd("BufWritePost", {
-	callback = function()
-		if not vim.b.did_save_message then -- Check if the message hasn't been displayed yet
-			vim.b.did_save_message = true
-			-- vim.cmd("echo 'File saved'")  -- Show the save message
 		end
 	end,
 })
@@ -80,3 +83,40 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
+-- Enable persistent undo history
+opt.undofile = true
+local undo_dir = vim.fn.expand("~/.local/share/nvim/undo")
+if not vim.fn.isdirectory(undo_dir) then
+	vim.fn.mkdir(undo_dir, "p")
+end
+vim.opt.undodir = undo_dir
+
+-- Disable undo history for temporary files (e.g., files in /tmp/)
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "/tmp/*",
+	callback = function()
+		vim.opt_local.undofile = false
+	end,
+})
+
+-- Automatically override :q behavior to close nvim-tree if it's open
+vim.api.nvim_create_autocmd("QuitPre", {
+	pattern = "*",
+	callback = function()
+		-- Check if nvim-tree is open in any window
+		local nvim_tree_open = false
+		for _, win in ipairs(vim.api.nvim_list_wins()) do
+			local buf = vim.api.nvim_win_get_buf(win)
+			local buf_name = vim.api.nvim_buf_get_name(buf)
+			if buf_name:match("NvimTree_") then
+				nvim_tree_open = true
+				break
+			end
+		end
+
+		-- If nvim-tree is open, quit all buffers (like :qa)
+		if nvim_tree_open then
+			vim.cmd("qa") -- Quit all buffers, including nvim-tree
+		end
+	end,
+})

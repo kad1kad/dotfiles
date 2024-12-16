@@ -81,7 +81,7 @@ return {
 			["ts_ls"] = function()
 				lspconfig["ts_ls"].setup({
 					capabilities = capabilities,
-					filetypes = { "typescript", "javascript" },
+					filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
 				})
 			end,
 			["tailwindcss"] = function()
@@ -94,6 +94,12 @@ return {
 				lspconfig["cssls"].setup({
 					capabilities = capabilities,
 					filetypes = { "css", "scss" },
+				})
+			end,
+			["html"] = function()
+				lspconfig["html"].setup({
+					capabilities = capabilities,
+					filetypes = { "html", "typescriptreact", "javascriptreact" },
 				})
 			end,
 			["emmet_ls"] = function()

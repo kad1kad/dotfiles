@@ -7,11 +7,11 @@ return {
 	opts = {
 		notifier = {
 			enabled = true,
-			timeout = 3000,
+			timeout = 1600,
 		},
 		styles = {
 			notification = {
-				-- wo = { wrap = true } -- Wrap notifications
+				wo = { wrap = true }, -- Wrap notifications
 			},
 		},
 	},
@@ -95,7 +95,6 @@ return {
 					:map("<leader>ub")
 				Snacks.toggle.inlay_hints():map("<leader>uh")
 				Snacks.toggle.indent():map("<leader>ug")
-				Snacks.toggle.dim():map("<leader>uD")
 			end,
 		})
 	end,
