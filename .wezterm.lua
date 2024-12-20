@@ -7,7 +7,12 @@ config.window_close_confirmation = "NeverPrompt"
 
 config.term = "xterm-256color"
 
-config.color_scheme = 'Nord (Gogh)'
+config.color_scheme = 'City Streets (terminal.sexy)'
+
+-- Match lackluster.nvim theme background
+config.colors = {
+  background = "#101010",
+}
 
 config.window_padding = {
   left = 0,
