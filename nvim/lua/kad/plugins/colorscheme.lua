@@ -1,15 +1,14 @@
 return {
-	"AlexvZyl/nordic.nvim",
+	"slugbyte/lackluster.nvim",
 	priority = 1000,
 	config = function()
-		require("nordic").setup({
-			-- Add nordic.nvim-specific configurations here
+		require("lackluster").setup({
 		})
-		vim.cmd("colorscheme nordic")
+		vim.cmd("colorscheme lackluster-mint")
 
-		-- Set a more prominent background color for Visual mode
-		vim.cmd([[
-      highlight Visual guibg=#0f1114 guifg=NONE
-    ]])
+		-- -- Set a more prominent background color for Visual mode
+		-- vim.cmd([[
+  --     highlight Visual guibg=#0f1114 guifg=NONE
+  --   ]])
 	end,
 }
