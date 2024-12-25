@@ -15,6 +15,14 @@ keymap("v", "C", '"_C', opts)
 -- Yank entire file to system clipboard
 keymap("n", "<leader>y", ":%y+<CR>", opts)
 
+-- Remap 'p' and 'P' to delete to black hole register and then paste
+vim.keymap.set('n', 'p', '"_dP', opts)
+vim.keymap.set('n', 'P', '"_dP', opts)
+
+-- Remap 'p' and 'P' in Visual mode to delete to black hole and paste
+vim.keymap.set('v', 'p', '"_dP', { noremap = true, silent = true })
+vim.keymap.set('v', 'P', '"_dP', { noremap = true, silent = true })
+
 -- Select entire document
 keymap("n", "<leader>a", "ggVG", opts)
 
@@ -43,7 +51,9 @@ keymap("n", "<BS>", "b", opts)
 keymap("v", "<BS>", "b", opts)
 
 -- Write file with leader w
-keymap("n", "<leader>w", ":w<CR>", opts)
+vim.keymap.set("n", "<leader>w", function()
+  vim.cmd("write")
+end, { noremap = true, silent = true })
 
 -- Quit with leader q
 keymap("n", "<leader>q", ":q<CR>", opts)
