@@ -6,7 +6,7 @@ return {
 	---@type snacks.Config
 	opts = {
 		notifier = {
-			enabled = true,
+			enabled = false,
 			timeout = 1600,
 		},
 		styles = {
