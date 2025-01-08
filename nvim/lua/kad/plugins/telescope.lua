@@ -14,18 +14,13 @@ return {
     telescope.setup({
       defaults = {
         path_display = { "relative" },
-        mappings = {
-          i = {
-            ["<C-k>"] = actions.move_selection_previous,  -- Correct function name
-            ["<C-j>"] = actions.move_selection_next,  -- Correct function name
-            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-          },
-          n = {
-            ["<C-k>"] = actions.move_selection_previous,
-            ["<C-j>"] = actions.move_selection_next,
+        layout_strategy = "vertical",  -- Set layout to vertical
+        layout_config = {  -- Configure layout settings
+          vertical = {
+            preview_height = 0.5,  -- Adjust the height of the preview pane
           },
         },
-      }
+      },
     })
 
     telescope.load_extension("fzf")
@@ -57,3 +52,4 @@ return {
     keymap('n', '<leader>sb', '<cmd>Telescope buffers<CR>', { noremap = true, silent = true })
   end,
 }
+

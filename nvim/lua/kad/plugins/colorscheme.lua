@@ -1,10 +1,10 @@
 return {
-	"slugbyte/lackluster.nvim",
+	"darkvoid-theme/darkvoid.nvim",
 	priority = 1000,
 	config = function()
-		require("lackluster").setup({
+		require("darkvoid").setup({
 		})
-		vim.cmd("colorscheme lackluster-mint")
+		vim.cmd("colorscheme darkvoid")
 
 		-- -- Set a more prominent background color for Visual mode
 		-- vim.cmd([[
