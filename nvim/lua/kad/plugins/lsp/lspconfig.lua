@@ -105,7 +105,7 @@ return {
 			["emmet_ls"] = function()
 				lspconfig["emmet_ls"].setup({
 					capabilities = capabilities,
-					filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+					filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact" },
 				})
 			end,
 			["lua_ls"] = function()

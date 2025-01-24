@@ -3,6 +3,15 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" }, -- ensure the icons are loaded
 		config = function()
+			local function lsp_clients()
+				local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
+				local client_names = {}
+				for _, client in ipairs(buf_clients) do
+					table.insert(client_names, client.name)
+				end
+				return table.concat(client_names, ", ")
+			end
+
 			require("lualine").setup({
 				options = {
 					icons_enabled = false,
@@ -24,7 +33,7 @@ return {
 					},
 				},
 				sections = {
-					lualine_a = { "mode" },
+					lualine_a = {},
 					lualine_b = { "branch", "diff", "diagnostics" },
 					lualine_c = {
 						{
@@ -32,7 +41,7 @@ return {
 							path = 1, -- 1 for relative path
 						},
 					},
-					lualine_x = { "filetype" },
+					lualine_x = { lsp_clients }, -- Use the function here
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},

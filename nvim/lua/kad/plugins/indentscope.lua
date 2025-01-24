@@ -1,4 +1,5 @@
 return {
+  enabled = false,
 	"echasnovski/mini.indentscope",
 	opts = function(_, opts)
 		opts.symbol = "▏" -- ▏│

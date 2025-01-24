@@ -32,39 +32,11 @@ return {
 			desc = "Rename File",
 		},
 		{
-			"<leader>gB",
-			function()
-				Snacks.gitbrowse()
-			end,
-			desc = "Git Browse",
-		},
-		{
-			"<leader>gf",
-			function()
-				Snacks.lazygit.log_file()
-			end,
-			desc = "Lazygit Current File History",
-		},
-		{
-			"<leader>gl",
-			function()
-				Snacks.lazygit.log()
-			end,
-			desc = "Lazygit Log (cwd)",
-		},
-		{
 			"<leader>un",
 			function()
 				Snacks.notifier.hide()
 			end,
 			desc = "Dismiss All Notifications",
-		},
-		{
-			"<leader>/",
-			function()
-				Snacks.terminal()
-			end,
-			desc = "Toggle Terminal",
 		},
 	},
 	init = function()
