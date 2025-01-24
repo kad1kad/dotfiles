@@ -9,9 +9,10 @@ config.term = "xterm-256color"
 
 config.color_scheme = 'City Streets (terminal.sexy)'
 
--- Match lackluster.nvim theme background
+-- Match darkvoid.nvim theme background
 config.colors = {
-  background = "#101010",
+  background = "#1c1c1c",
+  foreground = "b2d8d8"
 }
 
 config.window_padding = {
@@ -29,7 +30,7 @@ config.initial_rows = 150
 -- Disable title bar but enable resizable border
 config.window_decorations = "RESIZE"
 
-config.font_size = 16
+config.font_size = 15.5
 config.font = wezterm.font("JetBrains Mono NL", { weight = "Regular", style = "Normal" })
 
 -- Disable treating Alt as a modifier for commands
