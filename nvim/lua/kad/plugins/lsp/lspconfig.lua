@@ -51,14 +51,6 @@ return {
 				keymap.set("n", "K", vim.lsp.buf.hover, opts)
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
-
-				-- Print attached LSPs
-				local clients = vim.lsp.get_active_clients({ bufnr = ev.buf })
-				local client_names = {}
-				for _, client in ipairs(clients) do
-					table.insert(client_names, client.name)
-				end
-				print("Attached LSPs: " .. table.concat(client_names, ", "))
 			end,
 		})
 
@@ -76,6 +68,7 @@ return {
 			["pyright"] = function()
 				lspconfig["pyright"].setup({
 					capabilities = capabilities,
+					filetypes = { "python" },
 				})
 			end,
 			["ts_ls"] = function()

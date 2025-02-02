@@ -31,6 +31,8 @@ return {
 					"lua_ls",
 					"emmet_ls",
 					"pyright",
+          "elixirls",
+          "nextls",
 				},
 				automatic_installation = true,
 			})

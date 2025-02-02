@@ -45,16 +45,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- Define a subtle font color (use any color you prefer here)
-vim.cmd([[
-  highlight YankHighlightGroup guifg=#b0b0b0  " Light grey font color for yanked text
-]])
-
--- Define a subtle font color (use any color you prefer here)
-vim.cmd([[
-  highlight YankHighlightGroup guifg=#b0b0b0  " Light grey font color for yanked text
-]])
-
 -- BUFFER MANAGEMENT --
 -- Disables hidden buffers to ensure buffers are always visible and explicitly managed.
 -- This configuration also re-enables necessary features, like auto-saving, cursor position restoration,
