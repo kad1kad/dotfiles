@@ -1,5 +1,5 @@
 -- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -7,19 +7,19 @@ config.window_close_confirmation = "NeverPrompt"
 
 config.term = "xterm-256color"
 
-config.color_scheme = 'City Streets (terminal.sexy)'
+config.color_scheme = "City Streets (terminal.sexy)"
 
 -- Match darkvoid.nvim theme background
 config.colors = {
-  background = "#1c1c1c",
-  foreground = "b2d8d8"
+	background = "#1c1c1c",
+	foreground = "b2d8d8",
 }
 
 config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
 }
 
 config.use_fancy_tab_bar = false
@@ -42,33 +42,35 @@ config.hide_tab_bar_if_only_one_tab = true
 
 -- Enable clickable links
 config.hyperlink_rules = {
-  -- Match standard http/https URLs
-  {
-    regex = [[\bhttps?://[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
-    format = "$0",
-  },
-  -- Match 'www' URLs without 'http'
-  {
-    regex = [[\bwww\.[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
-    format = "https://$0",
-  },
-  -- Match emails
-  {
-    regex = [[\b[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}\b]],
-    format = "mailto:$0",
-  },
+	-- Match standard http/https URLs
+	{
+		regex = [[\bhttps?://[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
+		format = "$0",
+	},
+	-- Match 'www' URLs without 'http'
+	{
+		regex = [[\bwww\.[\w.-]+(?:\.[\w.-]+)+[/\w._~:/?#\[\]@!$&'()*+,;=%-]*\b]],
+		format = "https://$0",
+	},
+	-- Match emails
+	{
+		regex = [[\b[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}\b]],
+		format = "mailto:$0",
+	},
 }
 
 local act = wezterm.action
 
 config.keys = {
-  -- Move tabs
-  { key = '{', mods = 'SHIFT|SUPER', action = act.MoveTabRelative(-1) },
-  { key = '}', mods = 'SHIFT|SUPER', action = act.MoveTabRelative(1) },
+	-- Move tabs
+	{ key = "{", mods = "SHIFT|SUPER", action = act.MoveTabRelative(-1) },
+	{ key = "}", mods = "SHIFT|SUPER", action = act.MoveTabRelative(1) },
 
-  -- Pass Alt-j and Alt-k to Neovim
-  { key = 'j', mods = 'ALT', action = act.SendKey { key = 'j', mods = 'ALT' } },
-  { key = 'k', mods = 'ALT', action = act.SendKey { key = 'k', mods = 'ALT' } },
+	-- Pass Alt-j and Alt-k to Neovim
+	{ key = "j", mods = "ALT", action = act.SendKey({ key = "j", mods = "ALT" }) },
+	{ key = "k", mods = "ALT", action = act.SendKey({ key = "k", mods = "ALT" }) },
+	{ key = "h", mods = "ALT", action = act.SendKey({ key = "h", mods = "ALT" }) },
+	{ key = "l", mods = "ALT", action = act.SendKey({ key = "l", mods = "ALT" }) },
 }
 
 return config
