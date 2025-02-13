@@ -50,16 +50,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- This configuration also re-enables necessary features, like auto-saving, cursor position restoration,
 -- that are affected by disabling hidden buffers and persists the undo history.
 
-vim.o.hidden = false -- disable hidden buffers
+-- vim.o.hidden = false -- disable hidden buffers
 
 -- Save modified files when leaving
-vim.api.nvim_create_autocmd("BufLeave", {
-	callback = function()
-		if vim.bo.modified then
-			vim.cmd("silent! w") -- Save the file silently without showing messages
-		end
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufLeave", {
+-- 	callback = function()
+-- 		if vim.bo.modified then
+-- 			vim.cmd("silent! w") -- Save the file silently without showing messages
+-- 		end
+-- 	end,
+-- })
 
 -- Automatically save and restore cursor position
 vim.api.nvim_create_autocmd("BufReadPost", {

@@ -65,6 +65,7 @@ keymap("n", "<leader>h", ":nohl<CR>", opts)
 -- Window management
 keymap("n", "<leader>sv", "<C-w>v", opts) -- Split vertically
 keymap("n", "<leader>sh", "<C-w>s", opts) -- Split horizontally
+keymap("n", "<leader>se", "<C-w>=", opts) -- Make split windows equal width & height
 
 -- Fugitive
 keymap("n", "<leader>gb", ":Git blame<CR>", opts)
