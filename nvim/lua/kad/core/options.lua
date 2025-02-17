@@ -35,14 +35,25 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- turn off swapfile
 opt.swapfile = false
 
--- Highlight yanked text
-vim.api.nvim_set_hl(0, "YankHighlight", { bg = "", fg = "#c5727a" })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+-- Function to highlight yanked text
+local function highlight_yank()
+	-- Define the highlight group for yanked text
+	vim.highlight.on_yank({
+		higroup = "IncSearch",
+		timeout = 300,
+		on_macro = true,
+		on_visual = true,
+	})
+end
 
-	callback = function()
-		vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 300 })
-	end,
+-- Create an autocommand group
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
+-- Create the autocommand
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = highlight_yank,
+	group = highlight_group,
+	pattern = "*",
 })
 
 -- BUFFER MANAGEMENT --

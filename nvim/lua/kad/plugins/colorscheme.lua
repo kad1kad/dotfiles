@@ -1,8 +1,8 @@
 return {
-	"kad1kad/darkvoid.nvim",
+	"kdheepak/monochrome.nvim",
 	priority = 1000,
 	config = function()
-		require("darkvoid").setup({})
-		vim.cmd("colorscheme darkvoid")
+		require("monochrome")
+		vim.cmd("colorscheme monochrome")
 	end,
 }
