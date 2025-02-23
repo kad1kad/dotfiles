@@ -81,15 +81,11 @@ vim.keymap.set("n", "<leader>dh", function()
 	vim.diagnostic.open_float(nil, { focus = false })
 end, { desc = "Show diagnostics on hover" })
 
--- Toggle dark/light mode
 function ToggleTheme()
 	if vim.o.background == "dark" then
 		vim.o.background = "light"
-		vim.g.monochrome_style = "default"
 	else
 		vim.o.background = "dark"
-		vim.g.monochrome_style = "amplified"
 	end
-	vim.cmd("colorscheme monochrome")
 end
 keymap("n", "<leader>ll", ":lua ToggleTheme()<CR>", { noremap = true, silent = true })

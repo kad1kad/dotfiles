@@ -116,6 +116,10 @@ return {
 					filter = {
 						cwd = true,
 					},
+					matcher = {
+						frecency = true, -- use frecency boosting
+						history_bonus = true,
+					},
 				})
 			end,
 			desc = "Recent",
