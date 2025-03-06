@@ -27,26 +27,6 @@ vim.keymap.set("v", "P", '"_dP', { noremap = true, silent = true })
 -- Select entire document
 keymap("n", "<leader>a", "ggVG", opts)
 
--- Move line up
-keymap("n", "<C-k>", ":m '<-2<CR>gv=gv", opts)
-
--- Move line down
-keymap("n", "<C-j>", ":m '>+1<CR>gv=gv", opts)
-
--- Visual mode: Move selected lines up
-keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
--- Visual mode: Move selected lines down
-keymap("v", "<C-j>", ":m '>+1<CR>gv=gv", opts)
-
--- Change inner word
-keymap("n", "<leader>s", "ciw", opts)
-
--- Change inside "
-keymap("n", '<leader>"', 'ci"', opts)
-
--- Change inside '
-keymap("n", "<leader>'", "ci'", opts)
-
 -- Go back a word with backspace
 keymap("n", "<BS>", "b", opts)
 keymap("v", "<BS>", "b", opts)
@@ -69,7 +49,6 @@ keymap("n", "<leader>se", "<C-w>=", opts) -- Make split windows equal width & he
 
 -- Fugitive
 keymap("n", "<leader>gb", ":Git blame<CR>", opts)
-keymap("n", "<leader>gi", ":Git<CR>", opts)
 
 -- Resize panes with Alt + hjkl
 keymap("n", "<M-l>", ":vertical resize -2<CR>", opts)
@@ -81,11 +60,6 @@ vim.keymap.set("n", "<leader>dh", function()
 	vim.diagnostic.open_float(nil, { focus = false })
 end, { desc = "Show diagnostics on hover" })
 
-function ToggleTheme()
-	if vim.o.background == "dark" then
-		vim.o.background = "light"
-	else
-		vim.o.background = "dark"
-	end
-end
-keymap("n", "<leader>ll", ":lua ToggleTheme()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gg", function()
+	require("snacks.lazygit").open()
+end, { desc = "Open LazyGit via Snacks", noremap = true, silent = true })

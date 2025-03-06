@@ -17,6 +17,8 @@ opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 
 opt.cursorline = true
+vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#928374" })
+vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#928374" })
 
 opt.termguicolors = true
 opt.background = "dark" -- colorschemes that can be light or dark will be made dark

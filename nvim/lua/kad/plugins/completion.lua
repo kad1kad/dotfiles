@@ -22,7 +22,22 @@ return {
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 
-		-- Loads vscode style snippets from installed plugins (e.g. friendly-snippets)
+		-- Custom snippets
+		local s = luasnip.snippet
+		local t = luasnip.text_node
+		local i = luasnip.insert_node
+
+		-- Add custom snippets
+		luasnip.add_snippets("all", {
+			-- Snippet for class attribute
+			s("class", {
+				t('class="'),
+				i(1),
+				t('"'),
+			}),
+		})
+
+		-- Lods vscode style snippets from installed plugins (e.g. friendly-snippets)
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		-- Main nvim-cmp setup for insert mode
@@ -43,6 +58,29 @@ return {
 				["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
 				["<C-e>"] = cmp.mapping.abort(), -- close completion window
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+				-- Add snippet jump functionality
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if luasnip.expandable() then
+						luasnip.expand()
+					elseif luasnip.locally_jumpable(1) then
+						luasnip.jump(1)
+					elseif cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if luasnip.locally_jumpable(-1) then
+						luasnip.jump(-1)
+					elseif cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
 			}),
 			-- Sources for autocompletion
 			sources = cmp.config.sources({
@@ -71,7 +109,6 @@ return {
 		})
 
 		-- Additional setup for cmdline completion
-
 		-- `/` cmdline setup.
 		cmp.setup.cmdline("/", {
 			mapping = cmp.mapping.preset.cmdline(),
