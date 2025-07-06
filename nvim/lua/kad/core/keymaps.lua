@@ -25,7 +25,7 @@ vim.keymap.set("v", "p", '"_dP', { noremap = true, silent = true })
 vim.keymap.set("v", "P", '"_dP', { noremap = true, silent = true })
 
 -- Select entire document
-keymap("n", "<leader>a", "ggVG", opts)
+keymap("n", "<leader>sa", "ggVG", opts)
 
 -- Go back a word with backspace
 keymap("n", "<BS>", "b", opts)
@@ -49,6 +49,10 @@ keymap("n", "<leader>se", "<C-w>=", opts) -- Make split windows equal width & he
 
 -- Fugitive
 keymap("n", "<leader>gb", ":Git blame<CR>", opts)
+
+-- Centre cursor when moving to search result
+keymap("n", "n", "nzz", { silent = true })
+keymap("n", "N", "Nzz", { silent = true })
 
 -- Resize panes with Alt + hjkl
 keymap("n", "<M-l>", ":vertical resize -2<CR>", opts)

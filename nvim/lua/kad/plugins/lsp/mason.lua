@@ -7,7 +7,6 @@ return {
 	config = function()
 		-- import mason
 		local mason = require("mason")
-
 		-- enable mason and configure icons
 		mason.setup({
 			ui = {
@@ -18,7 +17,6 @@ return {
 				},
 			},
 		})
-
 		-- Defer the configuration of mason-lspconfig to allow mason.nvim to load first
 		vim.defer_fn(function()
 			local mason_lspconfig = require("mason-lspconfig")
@@ -31,25 +29,28 @@ return {
 					"lua_ls",
 					"emmet_ls",
 					"pyright",
-          "elixirls",
-          "nextls",
+					"elixirls",
+					"nextls",
+					-- Added for React/Gatsby support:
+					"eslint",
+					"jsonls",
+					"graphql",
 				},
 				automatic_installation = true,
 			})
 		end, 100) -- Delay for 100ms, adjust if necessary
-
 		-- Setup mason tool installer
 		local mason_tool_installer = require("mason-tool-installer")
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"prettier",
+				"prettierd", -- Faster prettier daemon (replaces prettier)
 				"stylua",
 				"isort",
 				"black",
 				"pylint",
 				"eslint_d",
-				"djlint",
 				"stylelint",
+				"graphql-language-service-cli", -- GraphQL tooling
 			},
 		})
 	end,

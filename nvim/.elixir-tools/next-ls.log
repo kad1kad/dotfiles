@@ -1,0 +1,284 @@
+
+12:01:08.641 [info] Loading 158 CA(s) from :otp store
+
+12:01:08.782 id=1 [debug] handled request client -> server initialize in 93ms
+
+12:03:15.564 [debug] sent notification server -> client window/logMessage
+
+12:03:15.567 [debug] NextLS v0.23.3 has initialized!
+
+12:03:15.567 [debug] sent notification server -> client window/logMessage
+
+12:03:15.567 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+12:03:15.568 [debug] sent notification server -> client window/logMessage
+
+12:03:15.568 id=41 [debug] sent request server -> client client/registerCapability
+
+12:03:15.568 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+12:03:17.226 [debug] sent notification server -> client window/logMessage
+
+12:03:17.226 [debug] Booting runtimes...
+
+12:03:17.230 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+12:03:17.230 [debug] sent notification server -> client window/logMessage
+
+12:03:17.233 [debug] handled notification client -> server textDocument/didOpen in 2ms
+
+12:03:17.237 [debug] handled notification client -> server textDocument/didChange in 4ms
+
+12:03:19.211 [debug] handled notification client -> server textDocument/didClose in 2ms
+
+12:03:30.774 id=2 [debug] handled request client -> server shutdown in 1ms
+
+12:03:38.225 [info] Loading 158 CA(s) from :otp store
+
+12:03:38.365 id=1 [debug] handled request client -> server initialize in 91ms
+
+12:03:38.370 [debug] sent notification server -> client window/logMessage
+
+12:03:38.373 [debug] NextLS v0.23.3 has initialized!
+
+12:03:38.373 [debug] sent notification server -> client window/logMessage
+
+12:03:38.373 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+12:03:38.374 id=71 [debug] sent request server -> client client/registerCapability
+
+12:03:38.374 [debug] sent notification server -> client window/logMessage
+
+12:03:38.374 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+12:03:39.836 [debug] sent notification server -> client window/logMessage
+
+12:03:39.836 [debug] Booting runtimes...
+
+12:03:39.839 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+12:03:39.839 [debug] sent notification server -> client window/logMessage
+
+12:03:39.841 [debug] handled notification client -> server textDocument/didOpen in 2ms
+
+12:03:43.365 [debug] handled notification client -> server textDocument/didClose in 2ms
+
+16:23:03.371 [notice] SIGTERM received - shutting down
+
+
+21:30:19.006 [info] Loading 158 CA(s) from :otp store
+
+21:30:19.131 id=1 [debug] handled request client -> server initialize in 81ms
+
+21:30:19.136 [debug] sent notification server -> client window/logMessage
+
+21:30:19.138 [debug] NextLS v0.23.3 has initialized!
+
+21:30:19.138 [debug] sent notification server -> client window/logMessage
+
+21:30:19.138 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+21:30:19.139 [debug] sent notification server -> client window/logMessage
+
+21:30:19.139 id=34 [debug] sent request server -> client client/registerCapability
+
+21:30:19.139 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+21:30:20.623 [debug] sent notification server -> client window/logMessage
+
+21:30:20.623 [debug] Booting runtimes...
+
+21:30:20.626 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+21:30:20.626 [debug] sent notification server -> client window/logMessage
+
+21:30:20.628 [debug] handled notification client -> server textDocument/didOpen in 1ms
+
+21:30:25.309 [debug] handled notification client -> server textDocument/didClose in 2ms
+
+22:18:02.853 [info] Loading 158 CA(s) from :otp store
+
+22:18:03.001 id=1 [debug] handled request client -> server initialize in 95ms
+
+22:18:03.006 [debug] sent notification server -> client window/logMessage
+
+22:18:03.009 [debug] NextLS v0.23.3 has initialized!
+
+22:18:03.009 [debug] sent notification server -> client window/logMessage
+
+22:18:03.009 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+22:18:03.009 [debug] sent notification server -> client window/logMessage
+
+22:18:03.009 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+22:18:03.010 id=66 [debug] sent request server -> client client/registerCapability
+
+22:18:04.515 [debug] sent notification server -> client window/logMessage
+
+22:18:04.515 [debug] Booting runtimes...
+
+22:18:04.518 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+22:18:04.518 [debug] sent notification server -> client window/logMessage
+
+22:18:04.520 [debug] handled notification client -> server textDocument/didOpen in 1ms
+
+22:19:30.762 [debug] handled notification client -> server textDocument/didClose in 6ms
+
+22:26:10.792 id=2 [debug] handled request client -> server shutdown in 7ms
+
+22:58:06.085 [info] Loading 158 CA(s) from :otp store
+
+22:58:06.228 id=1 [debug] handled request client -> server initialize in 94ms
+
+22:58:06.233 [debug] sent notification server -> client window/logMessage
+
+22:58:06.236 [debug] NextLS v0.23.3 has initialized!
+
+22:58:06.236 [debug] sent notification server -> client window/logMessage
+
+22:58:06.236 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+22:58:06.236 id=40 [debug] sent request server -> client client/registerCapability
+
+22:58:06.236 [debug] sent notification server -> client window/logMessage
+
+22:58:06.237 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+22:58:07.732 [debug] sent notification server -> client window/logMessage
+
+22:58:07.732 [debug] Booting runtimes...
+
+22:58:07.735 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+22:58:07.735 [debug] sent notification server -> client window/logMessage
+
+22:58:07.737 [debug] handled notification client -> server textDocument/didOpen in 1ms
+
+22:58:09.532 [debug] handled notification client -> server textDocument/didClose in 3ms
+
+22:58:55.918 id=2 [debug] handled request client -> server shutdown in 6ms
+
+22:59:17.374 [info] Loading 158 CA(s) from :otp store
+
+22:59:17.502 id=1 [debug] handled request client -> server initialize in 81ms
+
+22:59:17.507 [debug] sent notification server -> client window/logMessage
+
+22:59:17.512 [debug] NextLS v0.23.3 has initialized!
+
+22:59:17.512 [debug] sent notification server -> client window/logMessage
+
+22:59:17.512 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+22:59:17.512 [debug] sent notification server -> client window/logMessage
+
+22:59:17.512 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+22:59:17.512 id=1675 [debug] sent request server -> client client/registerCapability
+
+22:59:18.980 [debug] sent notification server -> client window/logMessage
+
+22:59:18.980 [debug] Booting runtimes...
+
+22:59:18.983 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+22:59:18.983 [debug] sent notification server -> client window/logMessage
+
+22:59:18.985 [debug] handled notification client -> server textDocument/didOpen in 2ms
+
+22:59:21.575 [debug] handled notification client -> server textDocument/didClose in 3ms
+
+22:59:30.327 id=2 [debug] handled request client -> server shutdown in 2ms
+
+22:59:57.642 [info] Loading 158 CA(s) from :otp store
+
+22:59:57.771 id=1 [debug] handled request client -> server initialize in 83ms
+
+22:59:57.776 [debug] sent notification server -> client window/logMessage
+
+22:59:57.778 [debug] NextLS v0.23.3 has initialized!
+
+22:59:57.778 [debug] sent notification server -> client window/logMessage
+
+22:59:57.778 [debug] Log file located at /Users/kadare/.config/nvim/.elixir-tools/next-ls.log
+
+22:59:57.779 id=1698 [debug] sent request server -> client client/registerCapability
+
+22:59:57.779 [debug] sent notification server -> client window/logMessage
+
+22:59:57.779 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+22:59:59.166 [debug] sent notification server -> client window/logMessage
+
+22:59:59.166 [debug] Booting runtimes...
+
+22:59:59.169 [error] ** (Protocol.UndefinedError) protocol Enumerable not implemented for nil of type Atom. This protocol is implemented for the following type(s): DBConnection.PrepareStream, DBConnection.Stream, Date.Range, Exqlite.Stream, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+    (elixir 1.17.3) lib/enum.ex:1: Enumerable.impl_for!/1
+    (elixir 1.17.3) lib/enum.ex:166: Enumerable.reduce/3
+    (elixir 1.17.3) lib/enum.ex:4423: Enum.reduce/3
+    (next_ls 0.23.3) lib/next_ls.ex:894: NextLS.handle_notification/2
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:478: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.2.1) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:321: :telemetry.span/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:474: anonymous fn/7 in GenLSP.loop/3
+    (gen_lsp 0.10.0) lib/gen_lsp.ex:553: GenLSP.attempt/4
+
+
+22:59:59.170 [debug] sent notification server -> client window/logMessage
+
+22:59:59.172 [debug] handled notification client -> server textDocument/didOpen in 2ms

@@ -1,47 +1,31 @@
 return {
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" }, -- ensure the icons are loaded
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			local function lsp_clients()
-				local buf_clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
-				local client_names = {}
-				for _, client in ipairs(buf_clients) do
-					table.insert(client_names, client.name)
-				end
-				return table.concat(client_names, ", ")
-			end
-
 			require("lualine").setup({
 				options = {
-					icons_enabled = false,
-					theme = "auto",
-					disabled_filetypes = {
-						statusline = {},
-						winbar = {},
-					},
-					section_separators = "", -- remove section separators
-					component_separators = "", -- remove component separators
+					icons_enabled = false, -- Disable icons to reduce overhead
+					theme = "auto", -- Let the theme adapt automatically
+					disabled_filetypes = { statusline = {}, winbar = {} },
+					section_separators = "", -- No section separators
+					component_separators = "", -- No component separators
 					ignore_focus = {},
-					always_divide_middle = true,
-					always_show_tabline = true,
-					globalstatus = true,
+					always_divide_middle = true, -- Ensures the sections are well-spaced
+					always_show_tabline = true, -- Keep tabline visible
+					globalstatus = true, -- Always show statusline globally
 					refresh = {
-						statusline = 100,
-						tabline = 100,
-						winbar = 100,
+						statusline = 300, -- Increased refresh interval to reduce overhead
+						tabline = 300, -- Increased refresh interval
+						winbar = 300, -- Increased refresh interval
 					},
 				},
 				sections = {
 					lualine_a = {},
 					lualine_b = { "branch", "diff", "diagnostics" },
 					lualine_c = {
-						{
-							"filename",
-							path = 1, -- 1 for relative path
-						},
+						{ "filename", path = 1 }, -- Use relative file path
 					},
-					lualine_x = { lsp_clients }, -- Use the function here
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},
@@ -49,17 +33,14 @@ return {
 					lualine_a = {},
 					lualine_b = {},
 					lualine_c = {
-						{
-							"filename",
-							path = 1, -- 1 for relative path
-						},
+						{ "filename", path = 1 }, -- Relative file path for inactive sections
 					},
 					lualine_x = { "location" },
 					lualine_y = {},
 					lualine_z = {},
 				},
-				tabline = {},
-				winbar = {},
+				tabline = {}, -- Empty tabline to prevent unnecessary calculations
+				winbar = {}, -- Empty winbar
 				inactive_winbar = {},
 				extensions = {},
 			})

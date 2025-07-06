@@ -3,10 +3,26 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"williamboman/mason.nvim", -- Add the base mason plugin
+		"williamboman/mason-lspconfig.nvim", -- Add this dependency explicitly
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
+		-- Import mason first
+		local mason = require("mason")
+
+		-- Setup mason first
+		mason.setup({
+			ui = {
+				icons = {
+					package_installed = "✓",
+					package_pending = "➜",
+					package_uninstalled = "✗",
+				},
+			},
+		})
+
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
 
@@ -16,26 +32,43 @@ return {
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-		local keymap = vim.keymap -- for conciseness
+		local keymap = vim.keymap
+
+		-- Setup mason-lspconfig after mason
+		mason_lspconfig.setup({
+			-- A list of servers to automatically install if they're not already installed
+			ensure_installed = {
+				"pyright",
+				"ts_ls",
+				"tailwindcss",
+				"cssls",
+				"html",
+				"emmet_ls",
+				"lua_ls",
+				"eslint",
+				"jsonls",
+				"graphql",
+			},
+			-- Whether servers that are set up (via lspconfig) should be automatically installed
+			automatic_installation = true,
+		})
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(ev)
 				-- Buffer local mappings.
 				local opts = { buffer = ev.buf, silent = true }
-
 				-- set keybinds
 				opts.desc = "Show LSP references"
-				keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+				keymap.set("n", "gR", vim.lsp.buf.references, opts)
 				opts.desc = "Go to declaration"
 				keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 				opts.desc = "Show LSP definitions"
-				keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+				keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 				opts.desc = "Show LSP implementations"
-				keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+				keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 				opts.desc = "Show LSP type definitions"
-				keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-				opts.desc = "See available code actions"
+				keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
 				keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 				opts.desc = "Smart rename"
 				keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
@@ -57,65 +90,64 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		-- -- Change the Diagnostic symbols in the sign column (gutter)
+		-- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+		-- for type, icon in pairs(signs) do
+		-- 	local hl = "DiagnosticSign" .. type
+		-- 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+		-- end
 
-		mason_lspconfig.setup_handlers({
-			["pyright"] = function()
-				lspconfig["pyright"].setup({
-					capabilities = capabilities,
-					filetypes = { "python" },
-				})
-			end,
-			["ts_ls"] = function()
-				lspconfig["ts_ls"].setup({
-					capabilities = capabilities,
-					filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["tailwindcss"] = function()
-				lspconfig["tailwindcss"].setup({
-					capabilities = capabilities,
-					filetypes = { "html", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["cssls"] = function()
-				lspconfig["cssls"].setup({
-					capabilities = capabilities,
-					filetypes = { "css", "scss" },
-				})
-			end,
-			["html"] = function()
-				lspconfig["html"].setup({
-					capabilities = capabilities,
-					filetypes = { "html", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["emmet_ls"] = function()
-				lspconfig["emmet_ls"].setup({
-					capabilities = capabilities,
-					filetypes = { "html", "htmldjango", "typescriptreact", "javascriptreact" },
-				})
-			end,
-			["lua_ls"] = function()
-				lspconfig["lua_ls"].setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
+		-- In Neovim 0.11.1, we'll use the recommended handler approach for safety
+		-- Define server configurations
+		local servers = {
+			pyright = {
+				filetypes = { "python" },
+			},
+			ts_ls = {
+				filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+			},
+			tailwindcss = {
+				filetypes = { "html", "typescriptreact", "javascriptreact" },
+			},
+			cssls = {
+				filetypes = { "css", "scss" },
+			},
+			html = {
+				filetypes = { "html", "typescriptreact", "javascriptreact" },
+			},
+			emmet_ls = {
+				filetypes = { "html", "typescriptreact", "javascriptreact" },
+			},
+			lua_ls = {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+						completion = {
+							callSnippet = "Replace",
 						},
 					},
-				})
-			end,
-		})
+				},
+			},
+			eslint = {
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+			},
+			jsonls = {
+				filetypes = { "json", "jsonc" },
+			},
+			graphql = {
+				filetypes = { "graphql", "gql", "javascript", "typescript" },
+			},
+		}
+
+		-- Setup all servers with our defined configurations
+		for server_name, server_config in pairs(servers) do
+			-- Add capabilities to each server config
+			server_config.capabilities = capabilities
+
+			-- Setup the language server with the combined configuration
+			lspconfig[server_name].setup(server_config)
+		end
 	end,
 }

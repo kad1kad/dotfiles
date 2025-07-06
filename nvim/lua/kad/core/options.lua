@@ -21,7 +21,7 @@ vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = "#928374" })
 vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#928374" })
 
 opt.termguicolors = true
-opt.background = "dark" -- colorschemes that can be light or dark will be made dark
+opt.background = "light" -- colorschemes that can be light or dark will be made light
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 
 -- backspace

@@ -11,4 +11,12 @@ return {
 	keys = {
 		{ "<leader>ng", "<cmd>Neogit<cr>", desc = "Neo[g]it Dashboard" },
 	},
+
+	sort_branches = "committerdate",
+
+	sections = {
+		recent = {
+			folded = false,
+		},
+	},
 }
